@@ -1,3 +1,14 @@
 .main {
   padding: 20px;
 }
+
+.cardContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.card {
+  flex-grow: 1;
+  max-width: 30%;
+  border-radius: 3px;
+}
