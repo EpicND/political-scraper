@@ -3,6 +3,7 @@ import Bill from "./Bill";
 
 interface BillProps {
   bill: Bill;
+  color?: string;
   children?: ReactNode;
 }
 

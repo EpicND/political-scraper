@@ -2,8 +2,10 @@ import Bill from "../../interfaces/Bill";
 import BillSummaries from "../../interfaces/BillSummaries";
 
 async function getData(): Promise<Array<Bill>> {
+
   var billArr: Array<Bill> = [];
-  const bills: BillSummaries = await getBillsWithSummaries(10);
+  const bills: BillSummaries = await getBillsWithSummaries(10, 2);
+
   for (var bill in bills?.summaries) {
     var currentBill = bills.summaries[bill]["bill"];
     const coSponsors = await fetch(
@@ -49,15 +51,22 @@ async function getData(): Promise<Array<Bill>> {
   return billArr;
 }
 
-async function getBillsWithSummaries(limit: number) {
+async function getBillsWithSummaries(limit: number, days: number) {
+
+  // Get bills from the last x days
+  var d = new Date();
+  d.setDate(d.getDate()-days);
+
   const response = await fetch(
     `https://api.congress.gov/v3/summaries?${new URLSearchParams({
       format: "json",
       limit: `${limit}`,
       api_key: `${process.env.LOC_API_KEY}`,
+      fromDateTime: `${d.toJSON().slice(0, 19) + "Z"}`
     })}`
   );
   const bills: BillSummaries = await response.json();
+
   return bills;
 }
 

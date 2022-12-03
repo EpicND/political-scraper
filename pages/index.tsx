@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Image from "next/image";
 import { getData } from "../bin/api/requests";
+import SortedCards from "../components/SortedCards";
 import Bill from "../interfaces/Bill";
 import styles from "../styles/Index.module.css";
 
@@ -21,19 +22,10 @@ export default function Home({ body }: any) {
       </Head>
 
       <main className={styles.main}>
-        <h1>Politics Scraper</h1>
+        <h1 className={styles.title}>Congress Cache</h1>
         <div className={styles.cardContainer}>
-          {body.map((bill: any) => {
-            return (
-              <div className={styles.card} key={bill["bill"]["title"]}>
-                <h3>{bill["bill"]["title"]}</h3>
-                <h4>{bill["party"]}</h4>
-                <div dangerouslySetInnerHTML={{ __html: bill["text"] }}></div>
-              </div>
-            );
-          })}
+          {SortedCards(body)}
         </div>
-        <p>Politics</p>
       </main>
     </div>
   );
