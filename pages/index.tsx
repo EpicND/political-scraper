@@ -73,7 +73,7 @@ export default function Home({ body }: any) {
 
         {body.map((bill: any) => {
           return (
-            <div className={styles.card}>
+            <div className={styles.card} key={bill["bill"]["title"]}>
               <h3>{bill["bill"]["title"]}</h3>
               <div dangerouslySetInnerHTML={{ __html: bill["text"] }}></div>
               <h4>{bill["party"]}</h4>
