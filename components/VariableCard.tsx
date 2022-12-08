@@ -15,9 +15,24 @@ function VariableCard({ bill, color }: BillProps) {
     onHoverStart={e => {}}
     onHoverEnd={e => {}}
   > 
-          <a> {bill["number"]}</a>
-          <a className={styles.title}>{bill["short_title"].substring(0, 60)}{bill["short_title"].length < 60 ? "" : "..."} </a>
-          <div className={color == "#FFFFFF" ? styles.subtitleBlack : styles.subtitleWhite }> {bill["summary"].substring(0, 120) + "..." }</div>
+
+          <a className={color == "#FFFFFF" ? styles.subtitleBlack : styles.subtitleWhite }> 
+            {bill["number"]} - {bill["sponsor_name"]}
+          </a>
+          
+          <div className={styles.text}>
+            <a className={styles.title}>
+              {bill["short_title"].substring(0, 60)} {bill["short_title"].length < 60 ? "" : "..."} 
+            </a>
+            <div className={color == "#FFFFFF" ? styles.subtitleBlack : styles.subtitleWhite }> 
+              {bill["summary"].substring(0, 120) + "..." }
+            </div>
+          </div>
+
+          <a className={color == "#FFFFFF" ? styles.footerBlack : styles.footerWhite }> 
+            {bill["latest_major_action"]} - {bill["latest_major_action_date"]}
+          </a>
+          
     </motion.div>;
 }
 

@@ -37,3 +37,23 @@
     font-size: 15px;
     font-weight: 500;
 }
+
+.footerWhite {
+    font-size: 10px;
+    margin-top: auto;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+}
+
+.footerBlack {
+    font-size: 10px;
+    margin-top: auto;
+    color: black;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+}
+
+.text {
+    margin-top: 10px;
+}
