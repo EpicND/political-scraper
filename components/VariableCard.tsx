@@ -1,8 +1,7 @@
-import { ReactElement } from "react";
+
 import BillProps from "../interfaces/BillProps";
 import styles from "../styles/Card.module.css";
 import { motion } from "framer-motion";
-import { useRef } from "react";
 
 function VariableCard({ bill, color }: BillProps) {
 
@@ -22,17 +21,17 @@ function VariableCard({ bill, color }: BillProps) {
           
           <div className={styles.text}>
             <a className={styles.title}>
-              {bill["short_title"].substring(0, 60)} {bill["short_title"].length < 60 ? "" : "..."} 
+              {bill["short_title"].substring(0, 60)}{bill["short_title"].length < 60 ? "" : "..."} 
             </a>
             <div className={color == "#FFFFFF" ? styles.subtitleBlack : styles.subtitleWhite }> 
-              {bill["summary"].substring(0, 120) + "..." }
+              {bill["summary"].substring(0, 120)}{bill["summary"].length < 60 ? "" : "..."}
             </div>
           </div>
 
           <a className={color == "#FFFFFF" ? styles.footerBlack : styles.footerWhite }> 
-            {bill["latest_major_action"]} - {bill["latest_major_action_date"]}
+            {bill["latest_major_action"].substring(0, bill["latest_major_action"].length - 1)} • {bill["latest_major_action_date"]}
           </a>
-          
+
     </motion.div>;
 }
 

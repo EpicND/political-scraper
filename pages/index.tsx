@@ -1,18 +1,18 @@
 import Head from "next/head";
-import Image from "next/image";
 import { getData } from "../bin/api/requests";
-import SortedCards from "../components/SortedCards";
+import GenerateBillCards from "../components/GenerateBillCards";
 import Bill from "../interfaces/Bill";
 import styles from "../styles/Index.module.css";
 
 const key = process.env.LOC_API_KEY;
 
 export async function getServerSideProps() {
-  const billArr: Array<Bill> = await getData();
-  return { props: { body: billArr } };
+  const enactedBillArr: Array<Bill> = await getData("enacted");
+  const proposedBillArr: Array<Bill> = await getData("updated");
+  return { props: { enactedBills: enactedBillArr, proposedBills: proposedBillArr  } };
 }
 
-export default function Home({ body }: any) {
+export default function Home({ enactedBills, proposedBills }: any) {
   return (
     <div>
       <Head>
@@ -23,8 +23,13 @@ export default function Home({ body }: any) {
 
       <main className={styles.main}>
         <h1 className={styles.title}>Congress Cache</h1>
+        <h1 className={styles.subtitle}> Enacted </h1>
         <div className={styles.cardContainer}>
-          {SortedCards(body)}
+          {GenerateBillCards(enactedBills)}
+        </div>
+        <h1 className={styles.subtitle}> In Progress </h1>
+        <div className={styles.cardContainer}>
+          {GenerateBillCards(proposedBills)}
         </div>
       </main>
     </div>

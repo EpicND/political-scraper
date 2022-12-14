@@ -3,10 +3,10 @@ import BillSummaries from "../../interfaces/BillSummaries";
 
 var currentCongress: number = 117;
 
-async function getData(): Promise<Array<Bill>> {
+async function getData(typeOfBill: string): Promise<Array<Bill>> {
 
   const response = await fetch(
-    `https://api.propublica.org/congress/v1/${currentCongress}/both/bills/enacted.json?`, {
+    `https://api.propublica.org/congress/v1/${currentCongress}/both/bills/${typeOfBill}.json?`, {
       headers: {
         "X-API-Key": `${process.env.PP_API_KEY}`
       }
@@ -27,6 +27,9 @@ async function getData(): Promise<Array<Bill>> {
 
     if(typeof democratSponsors == "undefined") democratSponsors = 0;
     if(typeof republicanSponsors == "undefined") republicanSponsors = 0;
+
+    if(currentBill["sponsor_party"] == "R") republicanSponsors++;
+    if(currentBill["sponsor_party"] == "D") democratSponsors++;
     
     if (democratSponsors == 0 && republicanSponsors != 0) {
       currentBill["party"] = "R";
@@ -41,6 +44,8 @@ async function getData(): Promise<Array<Bill>> {
     billSummaries[bill] = currentBill;
   }
 
+  console.log(billSummaries[0]);
+  
   return billSummaries;
 }
 
